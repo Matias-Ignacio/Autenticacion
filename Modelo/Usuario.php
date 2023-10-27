@@ -1,50 +1,50 @@
 <?php
-class Reloj{
+class Usuario{
 
-    private $idReloj;
-    private $nombreReloj;
-    private $objTipo;
-    private $objMarca;
-    private $precio;
+    private $idusuario;
+    private $usnombre;
+    private $uspass;
+    private $usmail;
+    private $usdeshabilitado;
     private $mensaje; 
 
     // Constructor
     public function __construct()
     {
-        $this->idReloj="";
-        $this->nombreReloj="";
-        $this->objTipo = new Tipo();
-        $this->objMarca = new Marca();
-        $this->precio = 0;
+        $this->idusuario=0;
+        $this->usnombre="";
+        $this->uspass = 0;
+        $this->usmail = "";
+        $this->usdeshabilitado = "";
         
     }//  fin cinstructor
 
-    public function setear($idReloj,$nombreReloj,$precio,$objTipo,$objMarca){
-        $this->setidReloj($idReloj);
-        $this->setnombreReloj($nombreReloj);
-        $this->setobjTipo($objTipo);
-        $this->setobjMarca($objMarca);
-        $this->setprecio($precio);
+    public function setear($idusuario,$usnombre,$uspass,$usmail,$usdeshabilitado){
+        $this->setidusuario($idusuario);
+        $this->setusnombre($usnombre);
+        $this->setuspass($uspass);
+        $this->setusmail($usmail);
+        $this->setusdeshabilitado($usdeshabilitado);
     }// fin function 
 
     //  METODO GET
-    public function getidReloj(){
-        return $this->idReloj; 
+    public function getidusuario(){
+        return $this->idusuario; 
     }
 
-    public function getnombreReloj(){
-        return $this->nombreReloj; 
+    public function getusnombre(){
+        return $this->usnombre; 
     }
-    public function getobjTipo(){
-        return $this->objTipo; 
-    }
-
-    public function getobjMarca(){
-        return $this->objMarca; 
+    public function getuspass(){
+        return $this->uspass; 
     }
 
-    public function getprecio(){
-        return $this->precio; 
+    public function getusmail(){
+        return $this->usmail; 
+    }
+
+    public function getusdeshabilitado(){
+        return $this->usdeshabilitado; 
     }
     public function getMensaje(){
         return $this->mensaje;
@@ -52,24 +52,24 @@ class Reloj{
 
 
     //  METODO SET
-    public function setidReloj($p){
-        $this->idReloj=$p;
+    public function setidusuario($p){
+        $this->idusuario=$p;
     }
 
-    public function setnombreReloj($nombreReloj){
-        $this->nombreReloj=$nombreReloj;
+    public function setusnombre($usnombre){
+        $this->usnombre=$usnombre;
     }
 
-    public function setobjTipo($objTipo){
-        $this->objTipo=$objTipo;
+    public function setuspass($uspass){
+        $this->uspass=$uspass;
     }
 
-    public function setobjMarca($obj){
-        $this->objMarca=$obj;
+    public function setusmail($mail){
+        $this->usmail=$mail;
     }
 
-    public function setprecio($p){
-        $this->precio=$p;
+    public function setusdeshabilitado($p){
+        $this->usdeshabilitado=$p;
     }
     public function setMensaje($mensaje){
         $this->mensaje=$mensaje;
@@ -79,12 +79,12 @@ class Reloj{
      * @return array
      */
     public function getDatos(){
-        $ID = $this->getidReloj();
-        $nom = $this->getnombreReloj();
-        $tip = $this->getobjTipo()->getnombreTipo();
-        $mar = $this->getobjMarca()->getnombreMarca();
-        $pre = $this->getprecio();
-        $array = ["$ID","$nom","$tip","$mar","$pre"];
+        $ID = $this->getidusuario();
+        $nom = $this->getusnombre();
+        $pass = $this->getuspass();
+        $mail = $this->getusmail();
+        $hab = $this->getusdeshabilitado();
+        $array = ["$ID","$nom","$pass","$mail","$hab"];
 
         return $array;
     }
@@ -97,27 +97,21 @@ class Reloj{
      */
     public function cargar(){
         $resp=false; 
-       $base=new BaseDatos("relojes");
-       $sql="SELECT * FROM reloj WHERE idReloj='".$this->getidReloj()."'";
+       $base=new BaseDatos("autenticacion");
+       $sql="SELECT * FROM usuario WHERE idusuario='".$this->getidusuario()."'";
        if($base->Iniciar()){
         $res=$base->Ejecutar($sql);
         if($res>-1){
             if($res>0){
                 $row=$base->Registro();
-                $objTipo=new Tipo(); // creo al obj 
-                $objTipo->setidTipo($row['idTipo']); // seteo su id 
-                $objTipo->cargar(); 
-                $objMarca=new Marca(); // creo al obj
-                $objMarca->setidMarca($row['idMarca']); // seteo su id 
-                $objMarca->cargar(); 
-                // setear($idReloj,$nombreReloj,$precio,$objTipo,$objMarca)
-                $this->setear($row["idReloj"],$row["nombreReloj"],$row["precio"],$objTipo,$objMarca);
+                // setear($idusuario,$usnombre,$usdeshabilitado,$uspass,$usmail)
+                $this->setear($row["idusuario"],$row["usnombre"],$row["uspass"],$row["usmail"],$row["usdeshabilitado"]);
                 $resp=true; 
             }// fin if 
         }// fin if
        }// fin if 
        else{
-        $this->setMensaje(" Reloj ->".$base->getError());
+        $this->setMensaje(" usuario ->".$base->getError());
        }
 
        return $resp; 
@@ -133,22 +127,22 @@ class Reloj{
      */
     public function insertar(){
         $resp=false;
-        $base=new BaseDatos("relojes");
-        $sql="INSERT INTO reloj (idReloj,nombreReloj,precio,idTipo,idMarca) VALUES('".$this->getidReloj()."','".$this->getnombreReloj()."',
-        ".$this->getprecio().",".$this->getobjTipo()->getidTipo().",".$this->getobjMarca()->getidMarca().");";
-        //var_dump($sql);
+        $base=new BaseDatos("autenticacion");
+        $sql="INSERT INTO usuario (idusuario,usnombre,uspass,usmail,usdeshabilitado) VALUES('".$this->getidusuario()."','".$this->getusnombre()."',
+        ".$this->getuspass().",".$this->getusmail().",".$this->getusdeshabilitado().");";
+
         if($base->Iniciar()){
             if($elid=$base->Ejecutar($sql)){
-                $this->setidReloj($elid);// id 
+                $this->setidusuario($elid);// id 
                 $resp=true;
             }    
             else{
-                $this->setMensaje("Reloj -> insertar ".$base->getError());
+                $this->setMensaje("usuario -> insertar ".$base->getError());
             }
 
         }// fin if 
         else{
-            $this->setMensaje("Reloj -> Insertar ".$base->getError());
+            $this->setMensaje("usuario -> Insertar ".$base->getError());
         }
         return $resp; 
 
@@ -162,23 +156,20 @@ class Reloj{
      */
     public function modificar(){
         $res=false;
-        $base=new BaseDatos("relojes");
-        $sql="UPDATE reloj SET nombreReloj='".$this->getnombreReloj()."', precio=".$this->getprecio()."
-        , idTipo=".$this->getobjTipo()->getidTipo().", idMarca=".$this->getobjMarca()->getidMarca()." WHERE idReloj=".$this->getidReloj()."";
-       // echo("<br>");
-        //var_dump($sql);
+        $base=new BaseDatos("autenticacion");
+        $sql="UPDATE usuario SET usnombre='".$this->getusnombre()."', uspass=".$this->getuspass()."
+        , usmail=".$this->getusmail().", usdeshabilitado=".$this->getusdeshabilitado()." WHERE idusuario=".$this->getidusuario()."";
+
         if($base->Iniciar()){
-          //  echo("<br> paso el iniciar <br>");
             if($base->Ejecutar($sql)){
-               // echo("<br> paso el ejecutar <br>");
-                $res=true;
+                  $res=true;
             }
             else{
-                $this->setMensaje("Reloj -> Modificar ".$base->getError());
+                $this->setMensaje("usuario -> Modificar ".$base->getError());
             }        
         }
         else{
-            $this->setMensaje("Reloj -> Modificar".$base->getError());
+            $this->setMensaje("usuario -> Modificar".$base->getError());
         }
 
         return $res; 
@@ -192,8 +183,8 @@ class Reloj{
      */
     public function eliminar(){
         $res=false; 
-        $base=new BaseDatos("relojes");
-        $sql="DELETE FROM reloj WHERE idReloj='".$this->getidReloj()."'";
+        $base=new BaseDatos("autenticacion");
+        $sql="DELETE FROM usuario WHERE idusuario='".$this->getidusuario()."'";
         if($base->Iniciar()){
             if($base->Ejecutar($sql)){
                 $res=true;
@@ -215,9 +206,9 @@ class Reloj{
      */
     public static function listar($parametro=""){
         $arreglo=array ();
-        $base=new BaseDatos("relojes");
+        $base=new BaseDatos("autenticacion");
         
-        $sql="SELECT * FROM reloj";
+        $sql="SELECT * FROM usuario";
         if($parametro!=""){
             $sql.=' WHERE '.$parametro;
             
@@ -226,22 +217,16 @@ class Reloj{
         if($res>-1){
             if($res>0){
                 while($row=$base->Registro()){
-                    $obj=new Reloj();
-                    $objTipo = new Tipo();
-                    $objTipo->setidTipo($row["idTipo"]);
-                    $objTipo->cargar(); 
-                    $objMarca = new Marca();
-                    $objMarca->setidMarca($row["idMarca"]);
-                    $objMarca->cargar();
-                    // setear($idReloj,$nombreReloj,$precio,$objTipo,$objMarca)
-                    $obj->setear($row["idReloj"],$row["nombreReloj"],$row["precio"],$objTipo,$objMarca);
+                    $obj=new Usuario();
+                    // setear($idusuario,$usnombre,$uspass,$usmail,$usdeshabilitado)
+                    $obj->setear($row["idusuario"],$row["usnombre"],$row["uspass"],$row["usmail"],$row["usdeshabilitado"]);
                     array_push($arreglo,$obj); // carga el obj en el array 
                     
                 }
             }
         }
         else{
-            //$this->setMensaje("Reloj -> listar".$base->getError());
+            //$this->setMensaje("usuario -> listar".$base->getError());
         }
         return $arreglo; 
     }// fin function 

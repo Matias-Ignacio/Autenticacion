@@ -14,8 +14,8 @@
 
         // METODO SETEAR
         public function setear($idrol,$rodescripcion){
-            $this->setrodescripcion($rodescripcion);
             $this->setidrol($idrol);
+            $this->setrodescripcion($rodescripcion);
 
         }// fin setear
 
@@ -46,8 +46,8 @@
      * @return array
      */
     public function getDatos(){
-        $nom = $this->getrodescripcion();
         $ID = $this->getidrol();
+        $nom = $this->getrodescripcion();
         $array = ["$ID","$nom"];
         return $array;
     }
@@ -57,13 +57,13 @@
         public function cargar(){
             $resp=false;
             $base=new BaseDatos("autenticacion");
-            $sql="SELECT * FROM rol WHERE rodescripcion=".$this->getrodescripcion();  
+            $sql="SELECT * FROM rol WHERE idrol=".$this->getidrol();  
             if($base->Iniciar()){
                 $res=$base->Ejecutar($sql);
                 if($res>-1){
                     if($res>0){
                         $row=$base->Registro();
-                        $this->setear($row["rodescripcion"],$row["idrol"]);
+                        $this->setear($row["idrol"], $row["rodescripcion"]);
                         $resp=true; 
 
                     }
@@ -80,11 +80,11 @@
         public function insertar(){
             $resp=false;
             $base=new BaseDatos("autenticacion");
-            $sql="INSERT INTO rol (rodescripcion,idrol) 
-            VALUES (".$this->getrodescripcion()."','".$this->getidrol()."')";
+            $sql="INSERT INTO rol (idrol, rodescripcion) 
+            VALUES (".$this->getidrol()."','".$this->getrodescripcion()."')";
             if($base->Iniciar()){
                 if($elid=$base->Ejecutar($sql)){
-                    $this->setrodescripcion($elid); 
+                    $this->setidrol($elid); 
                     $resp=true;
 
                 }
@@ -124,7 +124,7 @@
         public function eliminar(){
             $resp=false;
             $base=new BaseDatos("autenticacion");
-            $sql="DELETE FROM rol WHERE rodescripcion=".$this->getrodescripcion()."";
+            $sql="DELETE FROM rol WHERE idrol=".$this->getidrol()."";
             if($base->Iniciar()){
                 if($base->Ejecutar($sql)){
                     $resp=true;
@@ -152,8 +152,8 @@
             if($res>-1){
                 if($res>0){
                     while($row=$base->Registro()){
-                        $obj=new rol();
-                        $obj->setear($row["rodescripcion"],$row["idrol"]);
+                        $obj=new Rol();
+                        $obj->setear($row["idrol"], $row["rodescripcion"]);
                         array_push($arreglo,$obj);
                     }
                 }
