@@ -70,7 +70,7 @@ class Usuariorol{
     public function cargar(){
         $resp=false; 
        $base=new BaseDatos("autenticacion");
-       $sql="SELECT * FROM Usuariorol WHERE objUsuario='".$this->getobjUsuario()."'";
+       $sql="SELECT * FROM Usuariorol WHERE objUsuario='".$this->getobjUsuario()->getidusuario()."'";
        if($base->Iniciar()){
         $res=$base->Ejecutar($sql);
         if($res>-1){

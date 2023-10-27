@@ -4,7 +4,7 @@
 -- 
 
 -- --------------------------------------------------------
-
+CREATE DATABASE `autenticacion`;
 -- 
 -- Estructura de tabla para la tabla `usuario`
 -- 
