@@ -1,17 +1,17 @@
 <?php
-    class AbmMarca{
+    class AbmRol{
 
     /**
      * Espera como parametro un arreglo asociativo donde las claves coinciden con los nombres de las variables instancias del objeto
      * @param array $param
-     * @return $obj
+     * @return Rol
      */
     private function cargarObjeto($param){
         $obj = null;
            
-        if( array_key_exists('idMarca',$param) and array_key_exists('nombreMarca',$param)){
-            $obj = new Marca(); // llama a la capa modelo 
-            $obj->setear($param["idMarca"],$param["nombreMarca"]);
+        if( array_key_exists('idrol',$param) and array_key_exists('rodescripcion',$param)){
+            $obj = new Rol(); // llama a la capa modelo 
+            $obj->setear($param["idrol"],$param["rodescripcion"]);
 
         }
         return $obj;
@@ -21,14 +21,14 @@
     /**
      * Espera como parametro un arreglo asociativo donde las claves coinciden con los nombres de las variables instancias del objeto que son claves
      * @param array $param
-     * @return $obj
+     * @return Rol
      */
     private function cargarObjetoConClave($param){
         $obj = null;
         
-        if( isset($param['idMarca']) ){
-            $obj = new Marca();
-            $obj->setear($param['idMarca'], null);
+        if( isset($param['idrol']) ){
+            $obj = new Rol();
+            $obj->setear($param['idrol'], null);
         }
         return $obj;
     }// fin function cargarObjetoConClave
@@ -41,20 +41,20 @@
      */
      private function seteadosCamposClaves($param){
         $resp = false;
-        if (isset($param['idMarca']))
+        if (isset($param['idrol']))
             $resp = true;
         return $resp;
     }// fin seteadoCamposClaves
 
     /**
-     * METODO ALTA Marca
+     * METODO ALTA Rol
      * @param array $param
      * @return boolean
      */
     public function alta($param){
         $resp = false;
-        $elObjtMarca = $this->cargarObjeto($param);
-        if ($elObjtMarca!=null and $elObjtMarca->insertar()){
+        $elObjtRol = $this->cargarObjeto($param);
+        if ($elObjtRol!=null and $elObjtRol->insertar()){
             $resp = true;
         }
         return $resp;
@@ -62,15 +62,15 @@
     } // fin function alta
 
     /**
-     * METODO ELIMINAR Marca 
+     * METODO ELIMINAR Rol 
      * @param array $param
      * @return boolean
      */
     public function baja($param){
         $resp = false;
         if ($this->seteadosCamposClaves($param)){
-            $elObjMarca = $this->cargarObjetoConClave($param);
-            if ($elObjMarca!=null and $elObjMarca->eliminar()){
+            $elObjRol = $this->cargarObjetoConClave($param);
+            if ($elObjRol!=null and $elObjRol->eliminar()){
                 $resp = true;
             }
         } 
@@ -85,8 +85,8 @@
     public function modificacion($param){
         $resp = false;
         if ($this->seteadosCamposClaves($param)){
-            $elObjMarca = $this->cargarObjeto($param);
-            if($elObjMarca!=null and $elObjMarca->modificar()){
+            $elObjRol = $this->cargarObjeto($param);
+            if($elObjRol!=null and $elObjRol->modificar()){
                 $resp = true;
             }
         }
@@ -102,13 +102,13 @@
     public function buscar($param){
         $where =" true ";
         if ($param<>NULL){
-            if  (isset($param['idMarca']))
-                $where.=" and idMarca = '".$param['idMarca']."'";
-            if  (isset($param['nombreMarca']))
-                 $where.=" and nombreMarca = '".$param['nombreMarca']."'";                 
+            if  (isset($param['idrol']))
+                $where.=" and idrol = '".$param['idrol']."'";
+            if  (isset($param['rodescripcion']))
+                 $where.=" and rodescripcion = '".$param['rodescripcion']."'";                 
         }// fin if <> null
-        $arreglo = marca::listar($where);  
-       // var_dump($where);
+        $arreglo = Rol::listar($where);  
+    
         return $arreglo;
     }// fin function buscar
 

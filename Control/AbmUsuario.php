@@ -1,24 +1,21 @@
 <?php
 
-    class AbmReloj{
+    class AbmUsuario{
 
         /**
      * Espera como parametro un arreglo asociativo donde las claves coinciden con los nombres de las variables instancias del objeto
      * @param array $param
-     * @return Reloj
+     * @return Usuario
      */
     private function cargarObjeto($param){
         $obj = null;
            
-        if( array_key_exists('idReloj',$param) and array_key_exists('nombreReloj',$param) and 
-        array_key_exists('precio',$param) and array_key_exists('idTipo',$param) and 
-        array_key_exists('idMarca',$param) and array_key_exists('precio',$param) ){
-            $obj = new Reloj(); 
-            $objTipo = new Tipo();
-            $objTipo->setidTipo($param['idTipo']);
-            $objMarca = new Marca();
-            $objMarca->setidMarca($param['idMarca']);
-            $obj->setear($param["idReloj"],$param["nombreReloj"],$param["precio"],$objTipo,$objMarca);
+        if( array_key_exists('idusuario',$param) and array_key_exists('usnombre',$param) and 
+        array_key_exists('uspass',$param) and array_key_exists('usmail',$param) and 
+        array_key_exists('usdeshabilitado',$param) ){
+            $obj = new Usuario(); 
+
+            $obj->setear($param["idusuario"],$param["usnombre"],$param["uspass"],$param["usmail"],$param["usdeshabilitado"]);
 
         }
         return $obj;
@@ -30,14 +27,14 @@
     /**
      * Espera como parametro un arreglo asociativo donde las claves coinciden con los nombres de las variables instancias del objeto que son claves
      * @param array $param
-     * @return Reloj
+     * @return Usuario
      */
     private function cargarObjetoConClave($param){
         $obj = null;
         
-        if( isset($param['idReloj']) ){
-            $obj = new Reloj();
-            $obj->setear($param['idReloj'],null,null,null,null);
+        if( isset($param['idusuario']) ){
+            $obj = new Usuario();
+            $obj->setear($param['idusuario'],null,null,null,null);
         }
         return $obj;
     }// fin function cargarObjetoConClave
@@ -51,7 +48,7 @@
      */
     private function seteadosCamposClaves($param){
         $resp = false;
-        if (isset($param['idReloj']))
+        if (isset($param['idusuario']))
             $resp = true;
         return $resp;
     }// fin seteadoCamposClaves
@@ -64,8 +61,8 @@
      */
     public function alta($param){
         $resp = false;
-        $elObjReloj = $this->cargarObjeto($param);
-        if ($elObjReloj!=null and $elObjReloj->insertar()){
+        $elObjUsuario = $this->cargarObjeto($param);
+        if ($elObjUsuario!=null and $elObjUsuario->insertar()){
             $resp = true;
         }
         return $resp;
@@ -82,8 +79,8 @@
     public function baja($param){
         $resp = false;
         if ($this->seteadosCamposClaves($param)){
-            $elObjReloj = $this->cargarObjetoConClave($param);
-            if ($elObjReloj!=null and $elObjReloj->eliminar()){
+            $elObjUsuario = $this->cargarObjetoConClave($param);
+            if ($elObjUsuario!=null and $elObjUsuario->eliminar()){
                 $resp = true;
             }
         } 
@@ -100,8 +97,8 @@
     public function modificacion($param){
         $resp = false;
         if ($this->seteadosCamposClaves($param)){
-            $elObjReloj = $this->cargarObjeto($param);
-            if($elObjReloj!=null and $elObjReloj->modificar()){
+            $elObjUsuario = $this->cargarObjeto($param);
+            if($elObjUsuario!=null and $elObjUsuario->modificar()){
                 $resp = true;
             }
         }
@@ -118,20 +115,20 @@
     public function buscar($param){
         $where =" true ";
         if ($param<>NULL){
-            if  (isset($param['idReloj']))
-            $where.=" and idReloj = '".$param['idReloj']."'";
-            if  (isset($param['nombreReloj']))
-                 $where.=" and nombreReloj = '".$param['nombreReloj']."'";
-            if  (isset($param['precio']))
-                 $where.=" and precio = '".$param['precio']."'";
-            if  (isset($param['idTipo']))
-                 $where.=" and idTipo = '".$param['idTipo']."'";    
-            if  (isset($param['idMarca']))
-                 $where.=" and idMarca = '".$param['idMarca']."'";                     
+            if  (isset($param['idusuario']))
+            $where.=" and idusuario = '".$param['idusuario']."'";
+            if  (isset($param['usnombre']))
+                 $where.=" and usnombre = '".$param['usnombre']."'";
+            if  (isset($param['uspass']))
+                 $where.=" and uspass = '".$param['uspass']."'";
+            if  (isset($param['usmail']))
+                 $where.=" and usmail = '".$param['usmail']."'";    
+            if  (isset($param['usdeshabilitado']))
+                 $where.=" and usdeshabilitado = '".$param['usdeshabilitado']."'";                     
             }// fin if <> null
             echo("<br>"); 
-           // var_dump($where); 
-            $arreglo = reloj::listar($where);  
+           
+            $arreglo = Usuario::listar($where);  
             
         return $arreglo;
     }// fin function buscar
