@@ -158,7 +158,7 @@ class UsuarioRol{
     /**
      * METODO LISTAR POSTULANTE
      * DEVUELVE TODOS LOS USUARIOS CON SU ROL  EN LA BASE DE DATOS
-     * @param parametro
+     * @param $parametro
      * @return array 
      */
     public function listar($parametro=""){ // significa que el $parametro es opcional 
@@ -198,6 +198,34 @@ class UsuarioRol{
     }// fin function listar
     
 
+
+    
+    /**
+     * METODO ELIMINAR 
+     * @return boolean
+     */
+    
+     public function eliminar(){
+        $salida=false;
+        $sql="DELETE FROM usuariorol WHERE idusuario = ".$this->getObjUsuario()->getId()." AND idrol = ".$this->getObjRol()->getId();
+        $bd=new BaseDatos();
+        if($bd->Iniciar()){
+            if($bd->Ejecutar($sql)){
+                $salida=true;
+
+            }// fin if
+            else{
+                $this->setMensaje("Tabla Usuariorol-> eliminar".$bd->getError()); 
+            }// fin else
+
+        }// fin if
+        else{
+            $this->setMensaje("Tabla Usuariorol-> eliminar".$bd->getError());
+        }// fin else
+
+        return $salida; 
+    }// fin function eliminar
+    
 }// fin clase UsuarioRol
 
 

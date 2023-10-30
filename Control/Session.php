@@ -9,8 +9,8 @@ class Session{
 
     
     /** METODO INICIAR 
-     * @param nombreUsuario string
-     * @param pws string
+     * @param $nombreUsuario string
+     * @param $pws string
     */
     public function iniciar($nombreUsuario,$pws){
         //$_SESSION['user']=$nombreUsuario; // guarda la variable de session nombre usuario
@@ -33,9 +33,10 @@ class Session{
 
     }// fin metodo iniciar 
 
-    /**METODO VALIDAR
+    /**
+     * METODO VALIDAR
      * valida la session actual, si tiene usuario y pws válidos
-     * @return booelan
+     * @return boolean
      */
     public function validar(){
         $salida=false; 
@@ -45,7 +46,8 @@ class Session{
         return $salida; 
     }// fin metodo validar
 
-    /**METODO ACTIVA
+    /**
+     * METODO ACTIVA
      * @return boolean
      */
     public function activa(){
@@ -58,8 +60,9 @@ class Session{
 
     }// fin metodo activa
 
-    /** METODO GETUSUARIO 
-     * @return obj
+    /** 
+     * METODO GETUSUARIO 
+     * @return Usuario
     */
     public function getUsuario(){
         $objAbmUsuario=new AbmUsuario();
@@ -73,8 +76,9 @@ class Session{
         return $usuarioRegistrado;
     }// fin metodo getUsuario
 
-    /**METODO GETROL
-     * @return obj
+    /**
+     * METODO GETROL
+     * @return Rol
      */
     public function getRol(){
         $objRol=null;
@@ -96,7 +100,8 @@ class Session{
 
     }// fin metodo getRol
 
-    /**METODO CERRAR 
+    /**
+     * METODO CERRAR 
      * @return boolean
      */
     public function cerrar(){

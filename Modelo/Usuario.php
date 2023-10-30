@@ -188,7 +188,7 @@ class Usuario{
     /**
      * METODO LISTAR POSTULANTE
      * DEVUELVE TODOS LOS POSTULANTES EN LA BASE DE DATOS
-     * @param parametro
+     * @param $parametro
      * @return array 
      */
     public function listar($parametro=""){
@@ -209,7 +209,9 @@ class Usuario{
                     while($row=$bd->Registro()){
                     $obj=new Usuario();
                     $obj->setear($row['idusuario'],$row['usnombre'],$row['uspass'],$row['usmail'],$row['usdeshabilitado']);
-                    array_push($arrayUsuarios,$obj);   // opcion con this. Sino creo un obj y lo reemplazo por el this
+                    if(!$row['usdeshabilitado']){
+                        array_push($arrayUsuarios,$obj);   // opcion con this. Sino creo un obj y lo reemplazo por el this
+                    }
                     }// fin while 
 
 
@@ -219,6 +221,31 @@ class Usuario{
         return $arrayUsuarios; 
         //var_dump($arrayUsuarios);
     }// fin function listar
+
+ /**
+     * METODO BORRADO LOGICO
+     * @return boolean
+     */
+    public function eliminar(){
+        $salida=false;
+        $sql="UPDATE usuario SET usnombre='".$this->getNombre()."', uspass=".$this->getPassword().", usdeshabilitado=' NULL ' WHERE idusuario=".$this->getId();
+        $bd=new BaseDatos();
+
+        if($bd->Iniciar()){
+            if($bd->Ejecutar($sql)){
+                $salida=true;
+            }// fin if 
+            else{
+                $this->setMensaje("Tabla usuario Borrado logico ").$bd->getError();
+            }// fin else
+
+        } // fin if
+        else{
+            $this->setMensaje("Tabla usuario Borrado logico ").$bd->getError();
+        } // fin else
+        return $salida; 
+    }// fin function Borrado logico
+
 
 
 }// fin clase Usuario 

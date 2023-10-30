@@ -31,7 +31,7 @@ class AbmUsuario{
     /**
      * Espera un Array asociativo y devuelve el obj de la tabla
      * @param array $datos
-     * @return object
+     * @return Usuario
      */
     private function cargarObjeto($datos){
         $obj=null; 
@@ -51,7 +51,7 @@ class AbmUsuario{
     /**
      * Espera como parametro un array asociativo donde las claves coinciden  con los atributos 
      * @param array $datos
-     * @return obj
+     * @return Usuario
      */
     private function cargarObjetoConClave($datos){
         $obj=null;
@@ -67,7 +67,7 @@ class AbmUsuario{
     /**
      * corrobora que dentro del array asociativo estan seteados los campos
      * @param array $datos
-     * @return booelan
+     * @return boolean
      */
     private function setadosCamposClaves($datos){
         $resp=false;
@@ -99,7 +99,7 @@ class AbmUsuario{
     /**
      * PERMITE ELIMINAR UN OBJ AUTO
      * @param array $datos
-     * @return booelan
+     * @return boolean
      */
     public function baja($datos){
         $resp=false;
@@ -139,7 +139,7 @@ class AbmUsuario{
 
  /**
      * METODO BUSCAR
-     * Si el parametro es null, devolverá todos los registros de la tabla auto 
+     * Si el parametro es null, devolverá todos los registros de la tabla usuario 
      * si se llena con los campos de la tabla devolverá el registro pedido
      * @param array $param
      * @return array

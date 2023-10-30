@@ -30,7 +30,7 @@ class AbmRolUsuario{
     /**
      * Espera un Array asociativo y devuelve el obj de la tabla
      * @param array $datos
-     * @return object
+     * @return UsuarioRol
      */
     private function cargarObjeto($datos){
         $objUser=null;
@@ -60,7 +60,7 @@ class AbmRolUsuario{
     /**
      * Espera como parametro un array asociativo donde las claves coinciden  con los atributos 
      * @param array $datos
-     * @return obj
+     * @return UsuarioRol
      */
     private function cargarObjetoConClave($datos){
         $obj=null;
@@ -72,6 +72,7 @@ class AbmRolUsuario{
             // carga los obj con el ID
             $objUser->cargar(); 
             $objRol->cargar();  
+            $obj = new UsuarioRol;
             $obj->setear($objUser,$objRol);
 
         }// fin if 
@@ -82,7 +83,7 @@ class AbmRolUsuario{
     /**
      * corrobora que dentro del array asociativo estan seteados los campos
      * @param array $datos
-     * @return booelan
+     * @return boolean
      */
     private function setadosCamposClaves($datos){
         $resp=false;
@@ -114,7 +115,7 @@ class AbmRolUsuario{
     /**
      * PERMITE ELIMINAR UN OBJ AUTO
      * @param array $datos
-     * @return booelan
+     * @return boolean
      */
     public function baja($datos){
         $resp=false;

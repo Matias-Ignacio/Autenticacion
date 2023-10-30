@@ -171,7 +171,7 @@ class Rol{
     /**
      * METODO LISTAR 
      * DEVUELVE TODOS LOS ROLES EN LA BASE DE DATOS
-     * @param parametro
+     * @param $parametro
      * @return array 
      */
     public function listar($parametro=""){
