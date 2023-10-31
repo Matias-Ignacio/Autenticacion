@@ -93,12 +93,13 @@ class Session{
             $objRolUser=$listaUsuarios[0];
             // encuentro el id de usuario , 2° con el Id busco en UsuarioRol que tengan ese id (en teoria solo va a enontrar a uno)
             // 3° recupero el id de rol, 4° creo un obj rol u lo busco con ese ID
-            $dato['idrol']=$objRolUser->getId();
-            $objAbmRol=new AbmRol();
-            $lista=$objAbmRol->buscar($dato);
-            $objRol=$lista[0];
-
+            $dato['idrol']=$objRolUser->getObjRol()->getId();
+            $objRol=new Rol();
+            $objRol->setId($dato['idrol']);
+            $objRol->Cargar();
         }// fin if 
+        $_SESSION['idRol']=$objRol->getId();
+        $_SESSION['idDescripcion']=$objRol->getDescripcion();
         return $objRol; 
 
     }// fin metodo getRol

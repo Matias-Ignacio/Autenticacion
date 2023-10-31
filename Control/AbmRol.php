@@ -138,27 +138,30 @@ class AbmRol {
 
  /**
      * METODO BUSCAR
-     * Si el parametro es null, devolverá todos los registros de la tabla auto 
+     * Si el parametro es null, devolverá todos los registros de la tabla rol
      * si se llena con los campos de la tabla devolverá el registro pedido
      * @param array $param
-     * @return array
+     * @return Rol
      */
     public function buscar ($param){
-        $objNuevoAuto=new Rol();
+        $objRol=new Rol();
         $where=" true ";
         if($param<>null){
             // Va preguntando si existe los campos de la tabla 
-            if(isset($param['idrol'])){ // evalua si existe el auto con la primary key
-                $where.="and idrol='".$param['idrol']."'";
+            if(isset($param['idrol'])){ // evalua si existe el rol con la primary key
+                $where.="and idrol = ".$param['idrol']." ";
+               /*
                 if(isset($param['rodescripcion'])){// identifica si esta la clave (atributo de la tabla)
                     $where.="and rodescripcion ='".$param['rodescripcion']."'";
                 }// fin if 
+                */
 
             }// fin if 
         }// fin if
-        $arreglo=$objNuevoAuto->listar($where);
+        
+        $objRol->listar($where);
 
-        return $arreglo; 
+        return $objRol; 
 
     }// fin funcion     
 

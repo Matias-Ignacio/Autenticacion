@@ -4,12 +4,12 @@ include_once '../../configuracion.php';
 // llamado a los obj de la clase session , usuario y rol
 // inicia la session 
 $objSession=new Session(); 
+
 $datos=data_submitted(); 
 $objSession->iniciar($datos['nombre'],$datos['password']);
 // validacion de session 
 if($objSession->validar()){
-    echo "AVL 11 Validamos";
-    
+
     header('Location: ../Login/paginaSegura.php'); 
 
 }// fin if 
@@ -20,8 +20,6 @@ else{
     
 }// fin else
 
-
-$objSession->cerrar();
 
 
 

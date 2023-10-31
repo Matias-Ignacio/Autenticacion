@@ -75,19 +75,13 @@ class UsuarioRol{
                     $newObjRol=new Rol();// crea un ob rol
                     $newObjRol->setId($R['idrol']);// seteo su id
                     $newObjRol->cargar(); 
-
                     $this->setear($newObjUsuario,$newObjRol);
-
                 }// fin if 
-
             }// fin if
-
-
         }// fin if 
         else{
             $this->setMensaje("Error en la Tabla rol").$bd->getError();
         }// fin else
-
         return $salida; 
 
     }// fin function
@@ -106,21 +100,15 @@ class UsuarioRol{
         if($bd->Iniciar()){
             if($bd->Ejecutar($sql)){
                 $salida=true;
-
             }// fin if 
             else{
                 $this->setMensaje("rol - > Insertar").$bd->getError();
             }// fin else
-
         }// fin if 
         else{
             $this->setMensaje("rol - > Insertar").$bd->getError();
-
         }// fin else
-
         return $salida; 
-
-
     }// fin function insertar 
 
      /**
@@ -135,23 +123,15 @@ class UsuarioRol{
         if($bd->Iniciar()){
             if($bd->Ejecutar($sql)){
                 $salida=true;
-
             }// fin if 
             else{
                 $this->setMensaje("Tabla usuariorol Modificar ").$bd->getError();
-
             }// fin else
-
-
         } // fin if
         else{
             $this->setMensaje("Tabla usuariorol Modificar ").$bd->getError();
-
         } // fin else
-
         return $salida; 
-
-
     }// fin function modificar
 
 
@@ -162,30 +142,28 @@ class UsuarioRol{
      * @return array 
      */
     public function listar($parametro=""){ // significa que el $parametro es opcional 
-        //var_dump($parametro);
+        
         $bd=new BaseDatos();
         $arrayUsuarios=array();
         $sql="SELECT * FROM usuariorol";
         if($parametro!=""){
             $sql.=' WHERE '.$parametro;
         }// fin if 
-        //echo($sql."<br>");
         if($bd->Iniciar()){
             $respuesta=$bd->Ejecutar($sql);
             if($respuesta>-1){
                 if($respuesta>0){
-                // creo un obj nuevo de postulante ? o lo hago directo con this?
+                    // creo un obj nuevo de postulante ? o lo hago directo con this?
                     while($row=$bd->Registro()){
-                    $obj=new UsuarioRol();
-                    $objUsuario=new Usuario(); // creacion de los obj usuarios y rol
-                    $objRol=new Rol();
-                    $objUsuario->setId($row['idusuario']); // seteado del id de ambos
-                    $objRol->setId($row['idrol']); 
-                    $objUsuario->cargar(); // carga el obj 
-                    $objRol->cargar(); 
+                        $obj=new UsuarioRol();
+                        $objUsuario=new Usuario(); // creacion de los obj usuarios y rol
+                        $objRol=new Rol();
+                        $objUsuario->setId($row['idusuario']); // seteado del id de ambos
+                        $objRol->setId($row['idrol']); 
+                        $objUsuario->cargar(); // carga el obj 
+                        $objRol->cargar(); 
                     $obj->setear($objUsuario,$objRol);
                     // llamamos al cargar creo un obj usuarioRol
-
                     array_push($arrayUsuarios,$obj);  
                      // opcion con this. Sino creo un obj y lo reemplazo por el this
                     }// fin while 

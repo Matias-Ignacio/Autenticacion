@@ -166,9 +166,7 @@ class AbmUsuario{
 
             }// fin if 
         }// fin if
-        var_dump($where);
         $arreglo=$objUsuario->listar($where);
-        //var_dump($where); 
         return $arreglo; 
 
     }// fin funcion     

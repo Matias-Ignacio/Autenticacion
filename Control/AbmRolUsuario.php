@@ -167,11 +167,10 @@ class AbmRolUsuario{
         if($param<>null){
             // Va preguntando si existe los campos de la tabla 
             if(isset($param['idusuario'])){ // evalua si existe el auto con la primary key
-                $where.="and idusuario='".$param['idusuario']."'";
+                $where.="and idusuario= ".$param['idusuario']." ";
                 if(isset($param['idrol'])){// identifica si esta la clave (atributo de la tabla)
-                    $where.="and idrol ='".$param['idrol']."'";
+                    $where.="and idrol = ".$param['idrol']." ";
                 }// fin if 
-
             }// fin if 
         }// fin if
         $arreglo=$objUsuarioRol->listar($where);

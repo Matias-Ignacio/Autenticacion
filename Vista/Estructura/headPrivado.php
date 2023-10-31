@@ -1,4 +1,5 @@
 <?php
+$titulo = "Autenticacion";
 $variableSalida='Ver Registro';
 include_once '../../configuracion.php'; 
 $objSession=new Session();
@@ -16,7 +17,7 @@ $objSession=new Session();
     <link rel="stylesheet" type="text/css" href="../css/estilos.css">
     <!--LINK ICONS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
-    <title></title>
+    <title><?php echo $titulo; ?></title>
      <!-- LINK JS BOOSTRAP -->
     <script src="../librerias/bootstrap-5.2.0-dist/js/bootstrap.min.js"></script>
         <!-- LINK JS JQuery -->
@@ -32,12 +33,12 @@ $objSession=new Session();
             <div class="">
                 <h4>
                     <?php
-                    if($objSession->activa()){
-                        $objSession->cerrar();
-                        header('Location:../Login/VistaLogin.php'); 
-                    } // fin if 
+         
                     ?>
-                    <a href="../Login/VistaLogin.php">Salir</a>
+                    <h4>Usuario: <?php echo($_SESSION['nombreUsuario']);
+                    echo " (".$objSession->getRol()->getDescripcion().")" ;?></h4>
+                    <h4><a id="salir" onclick="<?php $objSession->cerrar(); ?>" href="../Login/VistaLogin.php">Salir</a></h4>
+                    
                 </h4>
             </div>
 

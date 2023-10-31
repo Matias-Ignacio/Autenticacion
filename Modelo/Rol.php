@@ -55,30 +55,23 @@ class Rol{
      * @return boolean
      */
     public function cargar(){
-        $salida=false; // inicializacion del valor de retorno
-        $sql = "SELECT * FROM rol WHERE idrol=".$this->getId();
         $bd=new BaseDatos();
-        if($$bd->Iniciar()){// inicializa la conexion
+        $salida=false; // inicializacion del valor de retorno
+        $sql = "SELECT * FROM rol WHERE idrol = ".$this->getId();
+        if($bd->Iniciar()){// inicializa la conexion
             $salida=$bd->Ejecutar($sql); 
             if($salida>-1){
                 if($salida>0){
                     $salida=true; 
-                    $R=$bd->Registro(); // recupera los registros de la tabla  con la ID dada
-                    
+                    $R=$bd->Registro(); // recupera los registros de la tabla  con la ID dada                  
                     $this->setear($R['idrol'],$R['rodescripcion']);
-
                 }// fin if 
-
             }// fin if
-
-
         }// fin if 
         else{
             $this->setMensaje("Error en la Tabla rol").$bd->getError();
         }// fin else
-
         return $salida; 
-
     }// fin function 
 
 
@@ -94,18 +87,14 @@ class Rol{
         if($bd->Iniciar()){
             if($bd->Ejecutar($sql)){
                 $salida=true;
-
             }// fin if 
             else{
                 $this->setMensaje("rol - > Insertar").$bd->getError();
             }// fin else
-
         }// fin if 
         else{
             $this->setMensaje("rol - > Insertar").$bd->getError();
-
         }// fin else
-
         return $salida; 
 
 
@@ -117,28 +106,20 @@ class Rol{
      */
     public function modificar(){
         $salida=false;
-        $sql="UPDATE rol SET rodescripcion='".$this->getDescripcion()."'  WHERE idusuario=".$this->getId();
+        $sql="UPDATE rol SET rodescripcion = '".$this->getDescripcion()."'  WHERE idusuario = ".$this->getId();
         $bd=new BaseDatos();
         if($bd->Iniciar()){
             if($bd->Ejecutar($sql)){
                 $salida=true;
-
             }// fin if 
             else{
                 $this->setMensaje("Tabla rol Modificar ").$bd->getError();
-
             }// fin else
-
-
         } // fin if
         else{
             $this->setMensaje("Tabla rol Modificar ").$bd->getError();
-
         } // fin else
-
         return $salida; 
-
-
     }// fin function modificar
 
     /**
@@ -148,22 +129,19 @@ class Rol{
     
     public function eliminar(){
         $salida=false;
-        $sql="DELETE FROM rol WHERE idrol=".$this->getId();
+        $sql="DELETE FROM rol WHERE idrol= ".$this->getId();
         $bd=new BaseDatos();
         if($bd->Iniciar()){
             if($bd->Ejecutar($sql)){
                 $salida=true;
-
             }// fin if
             else{
                 $this->setMensaje("Tabla rol-> eliminar".$bd->getError()); 
             }// fin else
-
         }// fin if
         else{
             $this->setMensaje("Tabla rol-> eliminar".$bd->getError());
         }// fin else
-
         return $salida; 
     }// fin function eliminar
 
@@ -180,9 +158,8 @@ class Rol{
         $arrayUsuarios=array();
         $sql="SELECT * FROM rol";
         if($parametro!=""){
-            $sql.='WHERE'.$parametro;
+            $sql.=' WHERE '.$parametro;
         }// fin if 
-
         if($bd->Iniciar()){
             $respuesta=$bd->Ejecutar($sql);
             if($respuesta>-1){
@@ -193,8 +170,6 @@ class Rol{
                     $obj->setear($row['idrol'],$row['rodescripcion']);
                     array_push($arrayUsuarios,$obj);   // opcion con this. Sino creo un obj y lo reemplazo por el this
                     }// fin while 
-
-
                 }// fin if 
             }// fin if 
         }// fin if 
