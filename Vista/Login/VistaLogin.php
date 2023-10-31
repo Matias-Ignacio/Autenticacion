@@ -6,7 +6,7 @@ include_once '../Estructura/headLibre.php';
 
 <main>
     <div class="container bg-white-50 d-flex justify-content-center mt-5">
-        <form  action="" method="post" name="formRegistro" id="formRegistro">
+        <form  action="../accion/accionVerificarLogin.php" method="post" name="formRegistro" id="formRegistro">
             <div class="card" style="width: 18rem;">
                 <img src="../imagenes/autenticacion.png" class="card-img-top" alt="...">
                 <div class="card-body">

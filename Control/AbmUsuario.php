@@ -149,7 +149,7 @@ class AbmUsuario{
         $where=" true ";
         if($param<>null){
             // Va preguntando si existe los campos de la tabla 
-            if(isset($param['idusuario'])){ // evalua si existe el auto con la primary key
+            if(isset($param['idusuario'])){ // evalua si existe el usuario con la primary key
                 $where.="and idusuario='".$param['idusuario']."'";
                 if(isset($param['usnombre'])){// identifica si esta la clave (atributo de la tabla)
                     $where.="and usnombre ='".$param['usnombre']."'";
@@ -166,6 +166,7 @@ class AbmUsuario{
 
             }// fin if 
         }// fin if
+        var_dump($where);
         $arreglo=$objUsuario->listar($where);
         //var_dump($where); 
         return $arreglo; 
@@ -197,7 +198,48 @@ class AbmUsuario{
 
 
 
+ /**
+     * METODO BUSCAR
+     * Si el parametro es null, devolverá todos los registros de la tabla usuario 
+     * si se llena con los campos de la tabla devolverá el registro pedido
+     * @param array $param
+     * @return array
+     */
+    public function buscar_2 ($param){
+        $objUsuario=new Usuario();
+        $where=" true ";
+        if($param<>null){
+            // Va preguntando si existe los campos de la tabla 
+            if(isset($param['idusuario'])){
+                $where.="and idusuario='".$param['idusuario']."'";
+            }else{
+                $where.="and idusuario LIKE '%' ";
+            }
+            if(isset($param['usnombre'])){
+                $where.=" and usnombre ='".$param['usnombre']."'";
+            }// fin if 
+            if(isset($param['uspass'])){
+                $where.=" and uspass ='".$param['uspass']."'";
+            }// fin if 
+            if(isset($param['usmail'])){
+                $where.=" and usmail ='".$param['usmail']."'";
+            }else{
+                $where.=" and usmail LIKE '%' ";
+            }
+            if(isset($param['usdeshabilitado'])){
+                $where.=" and usdeshabilitado ='".$param['usdeshabilitado']."'";
+            }else{
+                $where.=" and usdeshabilitado LIKE '%' ";
+            }
 
+
+        }// fin if
+        //var_dump($where);
+        $arreglo=$objUsuario->listar($where);
+        
+        return $arreglo; 
+
+    }// fin funcion    
 
 
 

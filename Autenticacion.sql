@@ -43,13 +43,13 @@ ADD CONSTRAINT `usuariorol_ibfk_1` FOREIGN KEY (`idusuario`) REFERENCES `usuario
 ADD CONSTRAINT `usuariorol_ibfk_2` FOREIGN KEY (`idrol`) REFERENCES `rol` (`idrol`);
 
 INSERT INTO usuario (idusuario, usnombre, uspass, usmail, usdeshabilitado) VALUES
-	(1, 'Roberto Claro', 11111, 'mail@mail.com', ''),
-	(2, 'Juan Claros', 22222, 'mail@mail.com', ''),
-	(3, 'Lolo Caros', 22222, 'mail@mail.com', ''),
-	(4, 'Jose Carlos', 22222, 'mail@mail.com', ''),
-	(5, 'Martin Bhaj', 22222, 'mail@mail.com', ''),
-	(6, 'Juana Oscuro', 22222, 'mail@mail.com', ''),
-	(7, 'Ana Oscu', 22222, 'mail@mail.com', '');
+	(1, 'Roberto', 11111, 'mail@mail.com', ''),
+	(2, 'Juana', 22222, 'mail@mail.com', ''),
+	(3, 'Lolo', 22222, 'mail@mail.com', ''),
+	(4, 'Jose', 22222, 'mail@mail.com', ''),
+	(5, 'Martin', 22222, 'mail@mail.com', ''),
+	(6, 'Juans', 22222, 'mail@mail.com', ''),
+	(7, 'Ana', 22222, 'mail@mail.com', '');
 	
 INSERT INTO rol (idrol, rodescripcion) VALUES
 	(1, 'comun'),

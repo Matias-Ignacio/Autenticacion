@@ -4,13 +4,13 @@ include_once '../../configuracion.php';
 
 // inicio de la session 
 $session=new Session();
-/** 
+/*
 if($resp){
-    header('Location:../main/paginaSegura.php');
+    header('Location:../Login/paginaSegura.php');
 
 }// fin if 
 else{
-    header('Location:../main/VistaLogin.php');
+    header('Location:../Login/VistaLogin.php');
 
 }// fin else
 */

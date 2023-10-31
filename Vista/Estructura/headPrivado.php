@@ -28,16 +28,16 @@ $objSession=new Session();
     <header class="container-fluid bg-light p-3 shadow">
         <div class="d-flex justify-content-evenly">
             <div><h1>Autenticacion</h1></div>
-             <div><h4><a href="../main/VistaListarUsuario.php"> Ver Registros </a> </h4></div>
+             <div><h4><a href="../Login/VistaListarUsuario.php"> Ver Registros </a> </h4></div>
             <div class="">
                 <h4>
                     <?php
                     if($objSession->activa()){
                         $objSession->cerrar();
-                        header('Location:../main/VistaLogin.php'); 
+                        header('Location:../Login/VistaLogin.php'); 
                     } // fin if 
                     ?>
-                    <a href="../main/VistaLogin.php">Salir</a>
+                    <a href="../Login/VistaLogin.php">Salir</a>
                 </h4>
             </div>
 

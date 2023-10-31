@@ -17,7 +17,7 @@ class BaseDatos extends PDO {
     public function __construct(){
         $this->engine = 'mysql';
         $this->host = 'localhost';
-        $this->database ='bdautenticacion';
+        $this->database ='autenticacion';
         $this->user = 'root';
         $this->pass = '';
         $this->debug = true;
@@ -114,6 +114,7 @@ class BaseDatos extends PDO {
             $resp =  $this->EjecutarSelect($sql);
         }
         //var_dump($resp);
+        
         return $resp;
    }
    
@@ -170,7 +171,6 @@ class BaseDatos extends PDO {
        //echo("Metodo ejecutar de base de datos <br>");
        //echo("\n".$sql."\n");
        $resultado=parent::query($sql);
-       //var_dump($resultado);
        if(!$resultado){
            $this->analizarDebug();
        }else {

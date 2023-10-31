@@ -196,25 +196,25 @@ class Usuario{
         $bd=new BaseDatos();
         $sql="SELECT * FROM usuario";
         if($parametro!=""){
-            $sql.=' WHERE'.$parametro;
+            $sql.=' WHERE '.$parametro;
         }// fin if 
-        //var_dump($this->Iniciar());
+        //var_dump($sql);
+        
         if($bd->Iniciar()){
-           // echo("Entro al iniciar <br>");
             $respuesta=$bd->Ejecutar($sql);
             if($respuesta>-1){
+
                 if($respuesta>0){
                     //echo("entro al ejecutar <br>");
                 // creo un obj nuevo de postulante ? o lo hago directo con this?
                     while($row=$bd->Registro()){
                     $obj=new Usuario();
                     $obj->setear($row['idusuario'],$row['usnombre'],$row['uspass'],$row['usmail'],$row['usdeshabilitado']);
-                    if(!$row['usdeshabilitado']){
+                
+                    if($row['usdeshabilitado'] === "0000-00-00 00:00:00"){
                         array_push($arrayUsuarios,$obj);   // opcion con this. Sino creo un obj y lo reemplazo por el this
                     }
                     }// fin while 
-
-
                 }// fin if 
             }// fin if 
         }// fin if 

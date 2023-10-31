@@ -9,16 +9,18 @@ class Session{
 
     
     /** METODO INICIAR 
-     * @param $nombreUsuario string
-     * @param $pws string
+     * @param string $nombreUsuario 
+     * @param string $pws
+     * @return  
     */
     public function iniciar($nombreUsuario,$pws){
         //$_SESSION['user']=$nombreUsuario; // guarda la variable de session nombre usuario
         $objAbmUsuario=new AbmUsuario();
 
         $consulta=['usnombre'=>$nombreUsuario,'uspass'=>$pws,'usdeshabilitado'=>null]; // forma la consulta para el metodo buscar de AbmUsuario 
-        $usuarios=$objAbmUsuario->buscar($consulta);
-        if($usuarios>=1){
+        $usuarios=$objAbmUsuario->buscar_2($consulta);
+        
+        if(count($usuarios)>=1){
             if($this->activa()){
                 $_SESSION['idUser']=$usuarios[0]->getId(); // guarda el Id del usuario en la session
                 $_SESSION['nombreUsuario']=$usuarios[0]->getNombre(); 
@@ -26,8 +28,8 @@ class Session{
             }// fin if 
 
         }// fin if 
-
-        return $_SESSION; 
+        //else  echo 'No hay sesion';
+        //return $_SESSION; 
 
 
 
@@ -52,7 +54,8 @@ class Session{
      */
     public function activa(){
         $salida=false;
-        if(session_start()){
+        //if(session_start()){
+        if(session_status() === PHP_SESSION_ACTIVE){    
             $salida=true; // la session esta activa 
         } // fin if 
 

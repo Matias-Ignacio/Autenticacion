@@ -8,19 +8,20 @@ $datos=data_submitted();
 $objSession->iniciar($datos['nombre'],$datos['password']);
 // validacion de session 
 if($objSession->validar()){
-    var_dump($objSession->validar());
+    echo "AVL 11 Validamos";
     
-    //header('Location: ../main/paginaSegura.php'); 
+    header('Location: ../Login/paginaSegura.php'); 
 
 }// fin if 
 else{
+  echo "No Validamos";
         $_GET['error']="compruebe los datos ingresados";
-      // header('Location: ../main/VistaLogin.php?error=compruebe los datos');
+       header('Location: ../Login/VistaLogin.php?error=compruebe los datos');
     
 }// fin else
 
 
-
+$objSession->cerrar();
 
 
 
