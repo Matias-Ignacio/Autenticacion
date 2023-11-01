@@ -43,7 +43,7 @@ $listaRolesUsuarios=$objUsuario->listarUsuarioRol(null);
                                     </a>
                                 </div>
                                 <div>
-                                    <a href="../accion/accionEliminarLogin.php?accion=borrar" data-bs-toggle="tooltip" data-bs-placement="top" title="borrar">
+                                    <a href="../accion/accionEliminarLogin.php?<?php echo $usuario->getObjUsuario()->getId(); ?>" data-bs-toggle="tooltip" data-bs-placement="top" title="borrar">
                                         <i class="bi bi-trash3"></i>  
                                     </a>
                                 </div>
