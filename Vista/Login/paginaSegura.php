@@ -2,16 +2,6 @@
 include_once '../../configuracion.php';  
 include_once '../Estructura/headPrivado.php';
 
-/*
-if($resp){
-    header('Location:../Login/paginaSegura.php');
-
-}// fin if 
-else{
-    header('Location:../Login/VistaLogin.php');
-
-}// fin else
-*/
 
 ?>
 

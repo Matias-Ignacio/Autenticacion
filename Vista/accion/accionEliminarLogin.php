@@ -9,6 +9,7 @@ $objSession=new Session();
 
 $datos=data_submitted(); 
 var_dump($datos);
+echo($_SESSION['nombreUsuario']);
 //$objSession->iniciar($datos['nombre'],$datos['password']);
 // validacion de session 
 if($objSession->validar()){

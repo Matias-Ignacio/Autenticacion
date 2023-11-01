@@ -1,5 +1,5 @@
 <?php
-$Titulo = "Listado de Postulantes";
+$titulo = "Listado de Postulantes";
 
 include_once '../../configuracion.php';
 include_once '../Estructura/headPrivado.php'; 
@@ -7,7 +7,7 @@ include_once '../Estructura/headPrivado.php';
 $objUsuario=new AbmUsuario();
 $listaUsuarios=$objUsuario->buscar(null); 
 $listaRolesUsuarios=$objUsuario->listarUsuarioRol(null);
-//var_dump($listaRolesUsuarios[0]->getObjRol()->getDescripcion());  
+
 ?>
 <main>
 <div class="container-fluid">
@@ -34,7 +34,8 @@ $listaRolesUsuarios=$objUsuario->listarUsuarioRol(null);
                     <tr>
                         <th scope="row"><?php echo($usuario->getObjUsuario()->getNombre()); ?></th>
                         <td><?php echo($usuario->getObjUsuario()->getMail()); ?></td>
-                        <td><?php echo($usuario->getobjUsuario()->getDeshabilitado()); ?></td>
+                        <td><?php 
+                        if ('0000-00-00 00:00:00' === $usuario->getobjUsuario()->getDeshabilitado()){echo "Activo";}else{echo ($usuario->getobjUsuario()->getDeshabilitado());} ?></td>
                         <td><?php echo($usuario->getObjRol()->getDescripcion()); ?></td>
                         <td class="d-flex justify-content-evenly">
                                 <div> <!--uso de iconos para mandar a editar o borrar un usuario-->
@@ -43,8 +44,8 @@ $listaRolesUsuarios=$objUsuario->listarUsuarioRol(null);
                                     </a>
                                 </div>
                                 <div>
-                                    <a href="../accion/accionEliminarLogin.php?<?php echo $usuario->getObjUsuario()->getId(); ?>" data-bs-toggle="tooltip" data-bs-placement="top" title="borrar">
-                                        <i class="bi bi-trash3"></i>  
+                                    <a href="../accion/accionEliminarLogin.php?usID=<?php echo ($usuario->getObjUsuario()->getId().", "); echo ($usuario->getObjRol()->getId()); ?>" data-bs-toggle="tooltip" data-bs-placement="top" title="borrar">
+                                        <i class="bi bi-trash3"></i>
                                     </a>
                                 </div>
 
