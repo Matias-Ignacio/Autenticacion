@@ -30,18 +30,7 @@ $objSession=new Session();
         <div class="d-flex justify-content-evenly">
             <div><h1>Autenticacion</h1></div>
              <div><h4><a href="../Login/VistaListarUsuario.php"> Ver Registros </a> </h4></div>
-            <div class="">
-                <h4>
-                    <?php
-         
-                    ?>
-                    <h4>Usuario: <?php echo($_SESSION['nombreUsuario']);
-                    echo " (".$objSession->getRol()->getDescripcion().")" ;?></h4>
-                    <h4><a id="salir" onclick="<?php $objSession->cerrar(); ?>" href="../Login/VistaLogin.php">Salir</a></h4>
-                    
-                </h4>
-            </div>
-
+             <h4><a id="salir" onclick="<?php $objSession->cerrar(); ?>" href="../Login/VistaLogin.php">Salir</a></h4>
         </div>
 
     </header>    

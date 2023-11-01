@@ -11,28 +11,14 @@ class Session{
     /** METODO INICIAR 
      * @param string $nombreUsuario 
      * @param string $pws
-     * @return  
     */
-    public function iniciar($nombreUsuario,$pws){
-        //$_SESSION['user']=$nombreUsuario; // guarda la variable de session nombre usuario
-        $objAbmUsuario=new AbmUsuario();
-
-        $consulta=['usnombre'=>$nombreUsuario,'uspass'=>$pws,'usdeshabilitado'=>null]; // forma la consulta para el metodo buscar de AbmUsuario 
-        $usuarios=$objAbmUsuario->buscar_2($consulta);
-        
-        if(count($usuarios)>=1){
-            if($this->activa()){
-                $_SESSION['idUser']=$usuarios[0]->getId(); // guarda el Id del usuario en la session
-                $_SESSION['nombreUsuario']=$usuarios[0]->getNombre(); 
-
-            }// fin if 
+    public function iniciar($nombreUsuario, $pws){
+        if($this->activa()){
+            $_SESSION['uspass']=$pws; 
+            $_SESSION['nombreUsuario']=$nombreUsuario; 
 
         }// fin if 
-        //else  echo 'No hay sesion';
-        //return $_SESSION; 
-
-
-
+   
     }// fin metodo iniciar 
 
     /**
@@ -41,10 +27,17 @@ class Session{
      * @return boolean
      */
     public function validar(){
-        $salida=false; 
-        if(isset($_SESSION['idUser'])){ // pregunta si esta seteado el id del usuario para validarlo
-            $salida=true; 
-        }// fin if 
+        $salida=false;   
+        $objAbmUsuario=new AbmUsuario();   
+        $consulta=['usnombre'=>$_SESSION['nombreUsuario'],'uspass'=>$_SESSION['uspass'],'usdeshabilitado'=>null]; // forma la consulta para el metodo buscar de AbmUsuario 
+        $usuarios=$objAbmUsuario->buscar_2($consulta);   
+        if(count($usuarios)>=1){
+            if($this->activa()){
+                $_SESSION['idUser']=$usuarios[0]->getId(); // guarda el Id del usuario en la session
+                $_SESSION['nombreUsuario']=$usuarios[0]->getNombre(); 
+                $salida=true; 
+            }
+        }
         return $salida; 
     }// fin metodo validar
 

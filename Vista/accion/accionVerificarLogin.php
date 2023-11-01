@@ -8,13 +8,15 @@ $objSession=new Session();
 $datos=data_submitted(); 
 $objSession->iniciar($datos['nombre'],$datos['password']);
 // validacion de session 
-if($objSession->validar()){
 
-    header('Location: ../Login/paginaSegura.php'); 
+
+
+if($objSession->validar()){
+ header('Location: ../Login/paginaSegura.php'); 
 
 }// fin if 
 else{
-  echo "No Validamos";
+
         $_GET['error']="compruebe los datos ingresados";
        header('Location: ../Login/VistaLogin.php?error=compruebe los datos');
     
