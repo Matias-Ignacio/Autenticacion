@@ -9,8 +9,6 @@ $datos=data_submitted();
 $objSession->iniciar($datos['nombre'],$datos['password']);
 // validacion de session 
 
-
-
 if($objSession->validar()){
  header('Location: ../Login/paginaSegura.php'); 
 

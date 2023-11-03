@@ -13,11 +13,15 @@ class Session{
      * @param string $pws
     */
     public function iniciar($nombreUsuario, $pws){
-        if($this->activa()){
-            $_SESSION['uspass']=$pws; 
-            $_SESSION['nombreUsuario']=$nombreUsuario; 
-
-        }// fin if 
+        
+        $objAbmUsuario=new AbmUsuario(); 
+        $param['usnombre'] = $nombreUsuario;
+        $param['uspass'] = $pws;
+        $param['usdeshabilitado'] = '0000-00-00 00:00:00';
+        $usuarios=$objAbmUsuario->buscar_2($param);  
+        if(count($usuarios)>=1){
+            $_SESSION['idusuario']=$usuarios[0]->getId(); // guarda el Id del usuario en la session      
+        }
    
     }// fin metodo iniciar 
 
@@ -28,15 +32,8 @@ class Session{
      */
     public function validar(){
         $salida=false;   
-        $objAbmUsuario=new AbmUsuario();   
-        $consulta=['usnombre'=>$_SESSION['nombreUsuario'],'uspass'=>$_SESSION['uspass'],'usdeshabilitado'=>null]; // forma la consulta para el metodo buscar de AbmUsuario 
-        $usuarios=$objAbmUsuario->buscar_2($consulta);   
-        if(count($usuarios)>=1){
-            if($this->activa()){
-                $_SESSION['idUser']=$usuarios[0]->getId(); // guarda el Id del usuario en la session
-                $_SESSION['nombreUsuario']=$usuarios[0]->getNombre(); 
-                $salida=true; 
-            }
+        if($this->activa() && (isset($_SESSION['idusuario']))){
+            $salida=true; 
         }
         return $salida; 
     }// fin metodo validar
@@ -62,7 +59,7 @@ class Session{
     */
     public function getUsuario(){
         $objAbmUsuario=new AbmUsuario();
-        $consulta=['usnombre'=>$_SESSION['nombreUsuario'],'idusuario'=>$_SESSION['idUser']];// pregunto si el usuario con 
+        $consulta=['idusuario'=>$_SESSION['idusuario']];// pregunto si el usuario con 
         // esa session esta registrado. Lo busco en la BD
         $usuarios=$objAbmUsuario->buscar($consulta);
         if($usuarios>=1){

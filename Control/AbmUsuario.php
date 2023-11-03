@@ -210,8 +210,6 @@ class AbmUsuario{
             // Va preguntando si existe los campos de la tabla 
             if(isset($param['idusuario'])){
                 $where.="and idusuario='".$param['idusuario']."'";
-            }else{
-                $where.="and idusuario LIKE '%' ";
             }
             if(isset($param['usnombre'])){
                 $where.=" and usnombre ='".$param['usnombre']."'";
@@ -221,13 +219,9 @@ class AbmUsuario{
             }// fin if 
             if(isset($param['usmail'])){
                 $where.=" and usmail ='".$param['usmail']."'";
-            }else{
-                $where.=" and usmail LIKE '%' ";
             }
             if(isset($param['usdeshabilitado'])){
                 $where.=" and usdeshabilitado ='".$param['usdeshabilitado']."'";
-            }else{
-                $where.=" and usdeshabilitado LIKE '%' ";
             }
 
 
